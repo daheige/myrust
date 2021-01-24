@@ -19,6 +19,18 @@ impl Point<f32, f32> {
     }
 }
 
+// 看一个由 Rust 标准库提供的特殊 trait， Drop 。
+// Drop trait 提供了一个当一个值离开作用域后 运行一些代码的方法
+struct HasDrop {
+    x: bool,
+}
+
+impl Drop for HasDrop {
+    fn drop(&mut self) {
+        println!("dropping!");
+    }
+}
+
 // 对于enum中也可以使用泛型，并使用不同的类型
 
 fn main() {
@@ -70,6 +82,10 @@ fn main() {
     println!("twiter art: {}", art.summary());
     println!("{}", art.author());
     notify(art);
+
+    let x = HasDrop { x: true };
+    println!("x:{}", x.x);
+    // println!("x:{:#?}", x);
 }
 
 // 会传递给函数的任何具体的 i32 值的 slice 切片类型

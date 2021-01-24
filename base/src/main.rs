@@ -87,6 +87,20 @@ fn main() {
     变量的所有权总是遵循相同的模式：将值赋值给另一个变量时移动它。
     当持有堆中数据值的变量离开 作用域时，其值将通过 drop 被清理掉，除非数据被移动为另一个变量所有。
     */
+
+    let mut v = vec![1, 3, 4, 5];
+    loop {
+        match v.pop() {
+            Some(x) => println!("{}", x),
+            None => break,
+        }
+    }
+
+    // 通过let Some方式遍历
+    let mut v = vec![1, 3, 4, 5];
+    while let Some(x) = v.pop() {
+        println!("{}", x)
+    }
 }
 
 fn say_hello(s: String) {
