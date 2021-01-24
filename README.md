@@ -1,0 +1,2 @@
+# myrust
+  rust study notes
