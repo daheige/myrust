@@ -1,5 +1,15 @@
+// 静态量贯穿于整个程序的生命周期，因此任何存储在常量中的引用有一 个 'static 生命周期
+static NAME: &'static str = "daheige";
+
 fn main() {
     println!("Hello, world!");
+    const U: i32 = 1;
+    println!("U = {}", U);
+    println!("NAME is {}", NAME);
+
+    let m: i32 = 12;
+    let n = m as i64; // 类型显式转化
+    println!("m -> i64: {}", n);
     let x = 12;
     println!("x = {}", x);
     let (m, n) = (123, 12); // 变量的解构操作
