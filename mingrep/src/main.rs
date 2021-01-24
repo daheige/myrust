@@ -17,3 +17,14 @@ fn main() {
         process::exit(1);
     }
 }
+
+/*
+% cargo run body popm.txt
+    Finished dev [unoptimized + debuginfo] target(s) in 0.00s
+     Running `target/debug/mingrep body popm.txt`
+Hello, world!
+search for body,in file popm.txt
+1.I’m nobody! Who are you?
+2. Are you nobody, too?
+5.6. How dreary to be somebody!
+*/
