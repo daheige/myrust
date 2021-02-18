@@ -21,7 +21,7 @@ fn main() {
     }
 
     for i in 1..5 {
-        println!("i = {}", i);
+        println!("current i = {}", i);
     }
 
     // for 迭代集合里面的元素
