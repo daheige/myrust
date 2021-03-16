@@ -2,7 +2,7 @@ extern crate rand; // 导入外部组件库
 use rand::Rng;
 use std::io;
 fn main() {
-    let secret_number = rand::thread_rng().gen_range(1, 100);
+    let secret_number = rand::thread_rng().gen_range(1, 10);
     println!("Hello, world!");
     println!("please input your guess.");
     let mut guess = String::new(); // mut修饰可变字符串
