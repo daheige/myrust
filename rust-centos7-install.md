@@ -56,3 +56,47 @@
 
 	[source.aliyun]
 	registry = "https://code.aliyun.com/rustcc/crates.io-index"
+
+# rust vscode setting.json配置
+
+	``` json
+	{
+		"go.formatTool": "goimports",
+		"go.goroot": "/usr/local/go",
+		"go.gopath": "/Users/heige/go",
+		"go.autocompleteUnimportedPackages": true,
+		"go.lintOnSave": "off",
+		"go.toolsGopath": "/Users/heige/go/bin",
+		"go.gotoSymbol.includeGoroot": true,
+		"go.gotoSymbol.includeImports": true,
+		"go.useLanguageServer": true,
+		"go.inferGopath": false,
+		"[go]": {
+			"editor.snippetSuggestions": "none",
+			"editor.formatOnSave": true,
+			"editor.codeActionsOnSave": {
+				"source.organizeImports": true
+			}
+		},
+		"gopls": {
+			"usePlaceholders": true, // add parameter placeholders when completing a function
+			"ui.documentation.linkTarget": "pkg.go.dev"
+		},
+		"files.eol": "\n",
+		"go.alternateTools": {
+			"gopls": "gopls"
+		},
+		"go.lintTool": "golangci-lint",
+		"editor.formatOnSave": true,
+		"editor.fontSize": 13,
+		"workbench.colorTheme": "Monokai",
+		"rust.all_features": true,
+		"editor.formatOnPaste": true,
+		"editor.multiCursorModifier": "ctrlCmd",
+		"editor.snippetSuggestions": "top",
+		"rust-client.channel": "stable",
+		"[rust]": {
+			"editor.defaultFormatter": "rust-lang.rust"
+		}
+	}
+	```
