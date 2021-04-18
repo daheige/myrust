@@ -13,6 +13,7 @@
     Rust 中文 Wiki：https://wiki.rust-china.org/
 
     rust程序设计第二版
+    https://kaisery.github.io/trpl-zh-cn/
     https://github.com/KaiserY/trpl-zh-cn
     https://github.com/wspl/trpl-zh-cn-pdf
 
