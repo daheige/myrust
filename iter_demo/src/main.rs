@@ -9,6 +9,18 @@ fn main() {
     // 在迭代器的基础上调用map方法创建一个新的迭代器，接着调用collect方法消费新的迭代器并创建一个vec
     let v2: Vec<_> = v1.iter().map(|x| x + 1).collect();
     println!("v2 is {:?}", v2); // v2 is [2, 3, 4, 5, 13]
+
+    let sum: u32 = Counter::new()
+        .zip(Counter::new().skip(1))
+        .map(|(a, b)| a * b)
+        .filter(|x| x % 3 == 0)
+        .sum();
+    println!("sum is: {}", sum);
+
+    let mut c = Counter::new();
+    for val in c.next() {
+        println!("{}", val);
+    }
 }
 
 // cargo test -- --nocapture 禁用默认测试println!不输出的问题，这样就可以打印出来信息来

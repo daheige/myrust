@@ -3,6 +3,8 @@ name = "adder_part"
 version = "0.1.0"
 authors = ["daheige <zhuwei313@hotmail.com>"]
 edition = "2018"
+license = "MIT"
+description="large plus"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
