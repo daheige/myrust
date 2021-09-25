@@ -25,7 +25,7 @@
 		$ rustc --version
 		rustc 1.49.0 (e1884a8e3 2020-12-29)
 
-# rust 镜像配置
+# rust镜像配置
 
 	https://www.cnblogs.com/YMaster/p/13232965.html
 
