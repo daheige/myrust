@@ -4,7 +4,8 @@
     dev 配置被定义为开发时的好的默认配置，release 配置则有着良好的发布构建的默认配置.
 
     当项目的 Cargo.toml 文件中没有任何 [profile.*] 部分的时候，Cargo 会对每一个配置都采用默认设置。
-    通过增加任何希望定制的配置对应的 [profile.*] 部分，我们可以选择覆盖任意默认设置的子集。例如，如下是 dev 和 release 配置的 opt-level 设置的默认值：
+    通过增加任何希望定制的配置对应的 [profile.*] 部分，我们可以选择覆盖任意默认设置的子集。
+    例如，如下是 dev 和 release 配置的 opt-level 设置的默认值：
 
     文件名: Cargo.toml
     [profile.dev]
