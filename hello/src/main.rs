@@ -1,4 +1,5 @@
 const MAX_POINT: u32 = 1000;
+
 fn main() {
     println!("Hello, world!");
     // let name: type = xxx变量定义 对于type可以自动推导出来
@@ -19,7 +20,7 @@ fn main() {
     // 字符型 char是32位的
     let c = 'a';
     println!("c = {}", c);
-    println!("c = {}",c);
+    println!("c = {}", c);
 
     // 数字类型
     // i8,i16,i32,i64,u8,u16,u32,u64,f32,f64
@@ -37,8 +38,8 @@ fn main() {
     show([1, 2, 3]);
 
     // 定义数组
-    let arr2:[u64;3] = [1,2,3]; // [Type;N] 数组的定义
-    println!("arr2[0]= {}",arr2[0]);
+    let arr2: [u64; 3] = [1, 2, 3]; // [Type;N] 数组的定义
+    println!("arr2[0]= {}", arr2[0]);
 
     // 元组
     let tup: (i32, f32, char) = (123, 12.56, 'a');
