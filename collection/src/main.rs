@@ -1,7 +1,8 @@
 /* rust常见的三种集合
-vector 允许我们一个挨着一个地储存一系列数量可变的值
-字符串（string）是一个字符的集合。我们之前见过 String 类型，不过在本章我们将深入了 解。
-哈希 map（hash map）允许我们将值与一个特定的键（key）相关联。这是一个叫做 map 的 更通用的数据结构的特定实现
+vector 允许我们一个挨着一个地储存一系列数量可变的值，里面的元素类型需要一样
+字符串（string）是一个字符的集合。我们之前见过 String 类型，不过在本章我们将深入了解
+哈希 map（hash map）允许我们将值与一个特定的键（key）相关联。
+这是一个叫做 map 的 更通用的数据结构的特定实现
 */
 use std::collections::HashMap;
 
@@ -12,6 +13,26 @@ fn main() {
     v.push(12);
     v.push(123);
     println!("v is:{:?}", v);
+
+    let v2 = vec![2,3,4,5];
+    println!("v2 = {:?}",v2);
+    println!("v2[0] = {}",v2[0]);
+
+    let first :&i32 = &v2[0]; // 返回的是一个引用
+    println!("v2[0] = {}",first);
+
+    if let Some(i) = v2.get(1){ // v2.get()返回的是一个Option<&T>
+        // 这里采用if let Some匹配
+        println!("v2[1] = {}",i); // v2[1] = 3
+    }
+
+    // 创建一个可变的vec
+    let mut v3 = Vec::new();
+    v3.push("abc");
+    v3.push("efg");
+    v3.push("hij");
+    println!("v3 = {:?}",v3);
+
     // 通过vec!宏创建一个集合 vector 在其离开作用域时会被释放
     let v = vec![1, 2, 4]; // 不可变集合
     println!("v is {:?}", v);
@@ -27,10 +48,12 @@ fn main() {
     v.push(123);
     println!("v is {:?}", v);
     // 通过引用的方式（借用v)来对元素进行遍历
+    // 遍历集合中的元素
     for i in &v {
         println!("i = {}", i);
     }
 
+    // 可变类型的vec遍历
     // 遍历可变 vector，从而修改vec里面元素的值
     let mut v = vec![1, 2, 3];
     for i in &mut v {
@@ -60,6 +83,7 @@ fn main() {
     i = Float(10.12)
     */
 
+    // Rust 的核心语言中只有一种字符串类型：str ，字符串slice，它通常以被借用的形式出现，&str
     // 字符串 在rust底层是str，也就是字符串slice由字符组成，通常以&str借用的方式出现
     let mut s = String::new(); // 新建一个空的字符串
     s = s + "daheige"; // 连接字符串
@@ -97,10 +121,19 @@ fn main() {
         println!("{}", c);
     }
 
+    // 打印字符串的bytes
+    println!("====str bytes=====");
+    for b in "abcdefg".bytes(){
+        print!("{} ", b);
+    }
+    println!("\n====end str bytes=====");
+
     // 字符串并不简单
     // 总而言之，字符串还是很复杂的。不同的语言选择了不同的向程序员展示其复杂性的方式。
-    // Rust 选 择了以准确的方式处理 String 数据作为所有 Rust 程序的默认行为，这意味着程序员们必须更 多的思考如何预先处理 UTF-8 数据。
-    // 这种权衡取舍相比其他语言更多的暴露出了字符串的复杂性， 不过也使你在开发生命周期后期免于处理涉及非 ASCII 字符的错误
+    // Rust 选 择了以准确的方式处理 String 数据作为所有 Rust 程序的默认行为，
+    // 这意味着程序员们必须更多的思考如何预先处理 UTF-8 数据。
+    // 这种权衡取舍相比其他语言更多的暴露出了字符串的复杂性，
+    // 不过也使你在开发生命周期后期免于处理涉及非 ASCII 字符的错误
 
     // map哈希
     // HashMap<K, V> 类型储存了一个键类型 K 对应一个值类型 V 的映射
@@ -109,12 +142,18 @@ fn main() {
     scores.insert("yellow", 50);
     println!("blue score: {:?}", scores.get("blue")); // get 返回的是一个Option<V>
 
+    let mut m = HashMap::new(); // 创建一个map
+    m.insert(1,1);
+    m.insert(2,2);
+    println!("m = {:?}",m);
+
     // 遍历hash
-    for (k, val) in &scores {
-        println!("key = {},value = {}", k, val);
+    for (key, val) in &scores {
+        println!("key = {},value = {}", key, val);
     }
 
     // 更新哈希 map 可以覆盖，也可以判断是否有
+    // 不存在就插入一个元素
     scores.entry("red").or_insert(25); // 如果不存在就插入一个key/val
     println!("scores :{:?}", scores); // scores :{"yellow": 50, "red": 25, "blue": 10}
 
