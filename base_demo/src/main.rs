@@ -1,3 +1,37 @@
+#[derive(Debug)]
+struct User {
+    name: String,
+    age: i32,
+    active: bool,
+}
+
+// 给结构体增加方法采用关键字impl
+impl User {
+    // self它代表调用该方法的结构体实例,这里是个不可变引用，具有读权限
+    fn print_user(&self) {
+        println!("current user name:{},age:{},active:{}", self.name, self.age, self.active);
+    }
+
+    // 这里self必须是可变引用才可以改变self上面的字段值，同时具有读写权限
+    fn change(&mut self, name: String) {
+        self.name = name;
+        self.age = self.age + 1;
+    }
+
+    // 关联函数,返回新创建的实例对象User,这里可以使用Self表示
+    // 相当于其他语言的静态方法
+    fn build_user(name: &str, age: i32, active: bool) -> Self {
+        let u = User {
+            name: name.to_string(),
+            age: age,
+            // active:active,// 可以使用下面的方式简写
+            active,
+        };
+
+        u
+    }
+}
+
 fn main() {
     let arr = [1, 2, 3];
     println!("arr = {}", arr[0]);
@@ -87,7 +121,119 @@ fn main() {
     // 其他类型的 slice
     let a = [1, 2, 3, 4];
     println!("a[0..2]= {:?}", &a[0..2]); // a[0..2]= [1, 2] display格式化打印
+
+    let u = User {
+        name: String::from("heige"),
+        age: 29,
+        active: true,
+    };
+
+    println!("user is {:?}", u); // user is User { name: "heige", age: 29, active: true }
+
+    // 创建一个可变的user
+    let mut u1 = User {
+        name: String::from("heige"),
+        age: 29,
+        active: true,
+    };
+    u1.name = String::from("daheige");
+    println!("u.name: {}", u1.name);
+
+    let u = User::build_user("daheige", 29, true);
+    println!("name is {},age is {},active is {}", u.name, u.age, u.active);
+
+    let u2 = User {
+        name: String::from("heige"),
+        age: 29,
+        active: true,
+    };
+
+    // 利用其他结构体更新u2里面的字段
+    let mut u3 = User {
+        name: String::from("heige"),
+        ..u2
+    };
+
+    println!("u3 is {:?}", u3); // 打印u3值
+    println!("u3.age = {}", u3.age); // u3.age = 29
+    println!("u3.active = {}", u3.active); // u3.active = true
+    u3.print_user();
+    u3.change(String::from("daheige"));
+    u3.print_user(); // current user name:daheige,age:30,active:true
+
+    let c = Color(12, 13);
+    println!("c.0 = {}", c.0);
+
+    let five = Some(5); // 声明一个有值的Option<T>
+    // 在对 Option<T> 进行 T 的运算之前必须将其转换为 T
+    // if let Some(T)匹配
+    if let Some(i) = five {
+        println!("i = {}", i);
+    }
+
+    let six = plus_one(five);
+    println!("six = {:?}", six); // six = Some(6)
+    println!("six = {:#?}", six); // 格式化打印
+    /*
+    six = Some(
+        6,
+    )
+     */
+
+    // 需要告诉 Rust Option<T> 是什么类型的，因为编译器只通过 None 值无法推断出 Some成员保存的值的类型
+    let absent_num: Option<i32> = None; // 声明一个空值的Option
+    if let Some(i) = absent_num { // 采用if let 语法取得 Option<T>里面的值，T可以是任何类型
+        println!("i = {}", i);
+    } else {
+        println!("none value");
+    }
+
+    let s = State::Active;
+    show_state(s);
+
+    // 通过if let Some匹配指定的值
+    // if let 是 match 的一个语法糖，它当值匹配某一模式时执行代码而忽略所有其他值
+    let s2 = Some(State::Active);
+    if let Some(State::Active) = s2 {
+        println!("active");
+    }
 }
+
+/*
+ * Option<T> 类型是如何帮助你利用类型系统来避免出错的。
+ 当枚举值包含数据时，你可以根据需要处理多少情况来选择使用 match 或 if let 来获取并使用这些值
+ 要么包含值，要么没有
+ <T> 它是一个泛型类型参数
+ 当枚举值包含数据时，你可以根据需要 处理多少情况来选择使用 match 或 if let 来获取并使用这些值
+ match允许我们将一个值与一系列的模式相比较，并根据相匹 配的模式执行相应代码。
+ 模式可由字面值、变量、通配符和许多其他内容构成
+ */
+
+fn plus_one(x: Option<i32>) -> Option<i32> {
+    match x {
+        None => None,
+        Some(i) => Some(i + 1),
+    }
+}
+
+enum State {
+    Unknown,
+    Active,
+    Running,
+    Stop,
+}
+
+fn show_state(s : State){ // match模式匹配
+    match s {
+        State::Unknown => println!("current state is :{}","unknown"),
+        State::Active => println!("current state is :{}","active"),
+        State::Running => println!("current state is :{}","running"),
+        State::Stop => println!("current state is :{}","stop"),
+        _ => println!("haha"),
+    }
+}
+
+struct Color(i32, i32); // 元组结构体，没有字段名
 
 fn calculate(s: &String) { // s是对于String引用，并不会获取s的所有权，s传递的一个不可变引用
     println!("s = {}", s) // 当s离开作用域后，不会丢弃它指向的数据

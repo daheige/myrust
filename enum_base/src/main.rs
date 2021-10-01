@@ -46,7 +46,11 @@ fn main() {
 }
 
 /*
- * Option<T> 类型是如何帮助你利用类型系统来避免出错的。当枚举值包含数据时，你可以根据需要 处理多少情况来选择使用 match 或 if let 来获取并使用这些值
+ * Option<T> 类型是如何帮助你利用类型系统来避免出错的。要么包含值，要么没有
+ <T> 它是一个泛型类型参数
+ 当枚举值包含数据时，你可以根据需要 处理多少情况来选择使用 match 或 if let 来获取并使用这些值
+ match允许我们将一个值与一系列的模式相比较，并根据相匹 配的模式执行相应代码。
+ 模式可由字面值、变量、通配符和许多其他内容构成
  */
 
 fn plus_one(x: Option<i32>) -> Option<i32> {
@@ -55,6 +59,7 @@ fn plus_one(x: Option<i32>) -> Option<i32> {
         Some(i) => Some(i + 1),
     }
 }
+
 fn value_in_cents(c: Coin) -> u32 {
     match c {
         Coin::Penny => {
@@ -67,6 +72,7 @@ fn value_in_cents(c: Coin) -> u32 {
         Coin::Quarter => 25,
     }
 }
+
 enum Coin {
     Penny,
     Nickel,
@@ -77,7 +83,7 @@ enum Coin {
 #[derive(Debug)]
 struct IpAdrr {
     kind: IpAddrKind,
-    address: String,
+    address: String, // 地址
 }
 
 // 仅仅使用枚举并将数据直接放进每一个枚举成员 而不是将枚举作为结构体的一部分
@@ -88,6 +94,7 @@ struct IpAdrr {
 
 #[derive(Debug)]
 enum IpAddrKind {
-    V4, // 首字母必须大写
+    V4,
+    // 首字母必须大写
     V6,
 }
