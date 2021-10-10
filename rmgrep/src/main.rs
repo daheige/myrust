@@ -1,4 +1,4 @@
-extern crate mgrep as mingrep;
+extern crate rmgrep as mingrep;
 
 use mingrep::Config;
 use std::env;
