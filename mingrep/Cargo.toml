@@ -3,7 +3,15 @@ name = "mingrep"
 version = "0.1.0"
 authors = ["daheige <zhuwei313@hotmail.com>"]
 edition = "2018"
+license = "MIT"
+description = "min grep text tools"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+
+[profile.dev]
+opt-level = 0
+
+[profile.release]
+opt-level = 3
