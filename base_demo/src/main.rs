@@ -1,3 +1,5 @@
+use std::fmt::{Error, Debug};
+
 #[derive(Debug)]
 struct User {
     name: String,
@@ -205,11 +207,31 @@ fn main() {
     let p2 = Point { x: 1.1, y: 1.2 };
     println!("distance is {}", p2.get_distance());
 
-    let p3 = Point{x:"abc",y:"hello"};
+    let p3 = Point { x: "abc", y: "hello" };
     let p4 = p2.mixup(p3); // p3所有权被移入到了mixup里面去了，不能继续使用p3了
     // println!("p3.x = {},p3.y = {}",p3.x,p3.y); // ^^^^ value borrowed here after move
-    println!("p4.x = {},p4.y = {}",p4.x,p4.y); // p4.x = 1.1,p4.y = hello
+    println!("p4.x = {},p4.y = {}", p4.x, p4.y); // p4.x = 1.1,p4.y = hello
 
+    let user = UserImpl { Id: 10, Name: "daheige".to_string() };
+    let res = user.AuthEntry();
+    if res {
+        println!("{} is right", user.Name)
+    } else {
+        println!("{} is invalid", user.Name)
+    }
+
+    let user = UserImpl { Id: 2, Name: "heige".to_string() };
+    let res = auth(&user); // 借用user
+    if res {
+        println!("{} is right", user.Name)
+    } else {
+        println!("{} is invalid", user.Name)
+    }
+}
+
+// 指定了 impl 关键字和 trait 名称，而不是具体的类型。该参数支持任何实现了指定 trait 的类型
+fn auth(a: &impl AuthService) -> bool {
+    a.AuthEntry()
 }
 
 /*
@@ -330,8 +352,8 @@ impl<T, U> Point<T, U> {
     }
 
     // 混入其他类型
-    fn mixup<V,W>(self,other:Point<V,W>) -> Point<T,W>{
-        Point{
+    fn mixup<V, W>(self, other: Point<V, W>) -> Point<T, W> {
+        Point {
             x: self.x,
             y: other.y,
         }
@@ -342,5 +364,28 @@ impl<T, U> Point<T, U> {
 impl Point<f32, f32> {
     fn get_distance(&self) -> f32 {
         (self.x.powi(2) + self.y.powi(2)).sqrt()
+    }
+}
+
+trait AuthService {
+    fn AuthEntry(&self) -> bool;
+}
+
+struct UserImpl {
+    Id: i32,
+    Name: String,
+}
+
+impl AuthService for UserImpl {
+    fn AuthEntry(&self) -> bool {
+        if self.Id == 1 {
+            return true;
+        }
+
+        if self.Name == "heige"{
+            return true;
+        }
+
+        false
     }
 }
