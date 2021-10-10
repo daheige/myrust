@@ -84,11 +84,13 @@ struct Counter {
 }
 
 impl Counter {
+    // 初始化counter实例
     fn new() -> Self {
         Self { count: 0 }
     }
 }
 
+// 实现 Iterator trait 来创建自定义迭代器
 // 实现迭代器上的next方法
 // 标准库中其他方法，默认已经实现了，不需要再次实现
 // 标准库则提供了其它调用 next 的方法的默认实现

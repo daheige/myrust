@@ -17,6 +17,7 @@ fn main() {
     assert_eq!(4, plus_two(2));
     let f = factory();
     let anwer = f(1);
+    println!("anwer = 6 is {}", anwer == 6);
     assert_eq!(6, anwer);
     assert_eq!(6, f(1));
 
@@ -51,7 +52,7 @@ fn main() {
     assert!(equal_to_x(y));
 }
 
-//  函数调用后闭包获得了被释放的内存环境
+// 函数调用后闭包获得了被释放的内存环境
 // 通过 Box 装箱，我们提供了一个已知大小的返回值，并允许它离开我们 的栈帧
 fn factory() -> Box<dyn Fn(i32) -> i32> {
     let num = 5;
@@ -70,12 +71,13 @@ fn generate_workout(intensity: u32, random_number: u32) {
     if intensity < 25 {
         println!("Today,do {} pushups!", expensive_closure(intensity));
         println!("next do {} situps!", expensive_closure(intensity));
+        return;
+    }
+
+    if random_number == 3 {
+        println!("task a break today! remember to stay hydrated!");
     } else {
-        if random_number == 3 {
-            println!("task a break today! remember to stay hydrated!");
-        } else {
-            println!("today run for {} minutes!", expensive_closure(intensity));
-        }
+        println!("today run for {} minutes!", expensive_closure(intensity));
     }
 }
 
@@ -106,16 +108,16 @@ fn generate_workout2(intensity: u32, random_number: u32) {
 // 定义结构体Cacher calculation 类型是一个函数闭包
 // value 是一个option 存放函数T闭包执行的结果
 struct Cacher<T>
-where
-    T: Fn(u32) -> u32,
+    where
+        T: Fn(u32) -> u32,
 {
     calculation: T,
     value: Option<u32>,
 }
 
 impl<T> Cacher<T>
-where
-    T: Fn(u32) -> u32,
+    where
+        T: Fn(u32) -> u32,
 {
     // 创建一个实例对象
     fn new(calculation: T) -> Cacher<T> {

@@ -30,6 +30,14 @@ fn main() {
         println!("value = {}", i);
     }
 
+    // 由 map 调用生成的迭代器的结果收集到一个 vector 中
+    // 调用 map 方法创建一个新迭代器，接着调用 collect 方法,消费新迭代器并创建一个 vector
+    let v1 = vec![1, 2, 3];
+    let v2: Vec<_> = v1.iter().map(|x| { x + 1 }).collect();
+    println!("v1 to v2 = {:?}", v2);
+    assert_eq!(v2, vec![2, 3, 4]);
+
+
     let v3 = vec![
         Spred::Int(1),
         Spred::Float(9.08),
