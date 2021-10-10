@@ -1,5 +1,5 @@
 [package]
-name = "mingrep"
+name = "mgrep"
 version = "1.1.0"
 authors = ["daheige <zhuwei313@hotmail.com>"]
 edition = "2018"
