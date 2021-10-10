@@ -43,8 +43,8 @@ fn notify<T: Summarizable>(item: T) {
  * 所以有另外一个指定 trait bounds 的语法，它将其移动到函数签名后的 where 从句中。所以相比这样写
  */
 fn notify2<T>(t: T)
-where
-    T: Summarizable,
+    where
+        T: Summarizable,
 {
     println!("notify message:{}", t.summary());
 }
@@ -81,6 +81,9 @@ fn main() {
     print!("{}\n", post.summary());
     // notify(post);
     notify2(post);
+
+    println!("max(1,13,12,14,158,123) = {}", max(&[1, 13, 12, 14, 158, 123]));
+    println!("max(a,b,c) = {}", max2(&["a", "b", "c"]));
 }
 
 /*
@@ -92,3 +95,31 @@ fn main() {
  * 另外，我们也无需编写运行时检查行为的代码，因为在编译时就已经检查过了，
  * 这样相 比其他那些不愿放弃泛型灵活性的语言有更好的性能。
  */
+
+// 使用 trait bounds
+// 通过 + 指定多个 trait bound
+fn max<T: PartialOrd + Copy>(s: &[T]) -> T {
+    let mut largest = s[0];
+    for &item in s.iter() {
+        if item > largest {
+            largest = item
+        }
+    }
+
+    largest
+}
+
+// 通过where方式指定泛型约束
+// 通过 where 简化 trait bound
+// 这里T是一个泛型类型，是多个trait特征
+fn max2<T>(s: &[T]) -> T
+    where T: PartialOrd + Copy {
+    let mut largest = s[0];
+    for &item in s.iter() {
+        if item > largest {
+            largest = item
+        }
+    }
+
+    largest
+}

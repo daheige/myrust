@@ -213,7 +213,7 @@ fn main() {
     println!("p4.x = {},p4.y = {}", p4.x, p4.y); // p4.x = 1.1,p4.y = hello
 
     let user = UserImpl { Id: 10, Name: "daheige".to_string() };
-    let res = user.AuthEntry();
+    let res = user.auth_entry();
     if res {
         println!("{} is right", user.Name)
     } else {
@@ -231,7 +231,7 @@ fn main() {
 
 // 指定了 impl 关键字和 trait 名称，而不是具体的类型。该参数支持任何实现了指定 trait 的类型
 fn auth(a: &impl AuthService) -> bool {
-    a.AuthEntry()
+    a.auth_entry()
 }
 
 /*
@@ -368,7 +368,7 @@ impl Point<f32, f32> {
 }
 
 trait AuthService {
-    fn AuthEntry(&self) -> bool;
+    fn auth_entry(&self) -> bool;
 }
 
 struct UserImpl {
@@ -377,7 +377,7 @@ struct UserImpl {
 }
 
 impl AuthService for UserImpl {
-    fn AuthEntry(&self) -> bool {
+    fn auth_entry(&self) -> bool {
         if self.Id == 1 {
             return true;
         }
