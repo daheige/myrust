@@ -197,6 +197,19 @@ fn main() {
     if let Some(State::Active) = s2 {
         println!("active");
     }
+
+    println!("===========struct type=========");
+    let p = Point { x: 1, y: 1.2 };
+    println!("x = {}", p.get_x());
+    println!("y = {}", p.get_y());
+    let p2 = Point { x: 1.1, y: 1.2 };
+    println!("distance is {}", p2.get_distance());
+
+    let p3 = Point{x:"abc",y:"hello"};
+    let p4 = p2.mixup(p3); // p3所有权被移入到了mixup里面去了，不能继续使用p3了
+    // println!("p3.x = {},p3.y = {}",p3.x,p3.y); // ^^^^ value borrowed here after move
+    println!("p4.x = {},p4.y = {}",p4.x,p4.y); // p4.x = 1.1,p4.y = hello
+
 }
 
 /*
@@ -223,12 +236,12 @@ enum State {
     Stop,
 }
 
-fn show_state(s : State){ // match模式匹配
+fn show_state(s: State) { // match模式匹配
     match s {
-        State::Unknown => println!("current state is :{}","unknown"),
-        State::Active => println!("current state is :{}","active"),
-        State::Running => println!("current state is :{}","running"),
-        State::Stop => println!("current state is :{}","stop"),
+        State::Unknown => println!("current state is {}", "unknown"),
+        State::Active => println!("current state is {}", "active"),
+        State::Running => println!("current state is {}", "running"),
+        State::Stop => println!("current state is {}", "stop"),
         _ => println!("haha"),
     }
 }
@@ -295,4 +308,39 @@ fn first_word_str2(s: &str) -> &str {
     }
 
     &s[..]
+}
+
+// 结构体中定义的泛型 Point<T,U> 尖括号里面的是类型约定
+#[derive(Debug)]
+struct Point<T, U> {
+    x: T,
+    y: U,
+}
+
+// impl<T,U>声明表明尖括号里面的类型是一个泛型参数，而不是具体类型
+// 在 impl 之后声明 泛型 T
+// 这样 Rust 就知道 Point 的尖括号中的类型是泛型而不是具体类型
+impl<T, U> Point<T, U> {
+    fn get_x(&self) -> &T {
+        &self.x
+    }
+
+    fn get_y(&self) -> &U {
+        &self.y
+    }
+
+    // 混入其他类型
+    fn mixup<V,W>(self,other:Point<V,W>) -> Point<T,W>{
+        Point{
+            x: self.x,
+            y: other.y,
+        }
+    }
+}
+
+// 实现指定类型的方法
+impl Point<f32, f32> {
+    fn get_distance(&self) -> f32 {
+        (self.x.powi(2) + self.y.powi(2)).sqrt()
+    }
 }
