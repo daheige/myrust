@@ -1,10 +1,10 @@
 [package]
 name = "rmgrep"
-version = "1.1.0"
+version = "1.1.1"
 authors = ["daheige <zhuwei313@hotmail.com>"]
 edition = "2018"
 license = "MIT"
-description = "min grep text tools"
+description = "rust min grep text tools"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
