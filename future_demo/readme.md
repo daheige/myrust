@@ -16,3 +16,7 @@ async fn do_something() { // ... }
 # 参考
 
     https://learnku.com/docs/async-book/2018/async_await_primer/4788
+
+# async-book
+
+    https://rust-lang.github.io/async-book/
