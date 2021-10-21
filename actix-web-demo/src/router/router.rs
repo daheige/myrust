@@ -1,8 +1,9 @@
 use actix_web::{
-    get, post, web, App, Either, Error, HttpRequest, HttpResponse, HttpServer, Responder, Scope,
+    get, post, web, App, Either, Error, HttpRequest, HttpResponse, HttpServer, Responder, Result,
+    Scope,
 };
 use futures::future::{ready, Ready};
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 use serde_json;
 
 // 通过宏定义handler
@@ -95,6 +96,44 @@ pub async fn index3(_req: HttpRequest) -> impl Responder {
     .with_header("x-version", "1.2.3")
 }
 
+/// 路由参数定义
+/// http://localhost:8080/api/users/1/daheige
+#[get("/users/{user_id}/{friend}")]
+async fn get_user(web::Path((user_id, friend)): web::Path<(u32, String)>) -> Result<String> {
+    Ok(format!("welcome {},uid:{}", friend, user_id))
+}
+
+// 将路径参数提取到指定的结构体中
+#[derive(Deserialize)]
+struct UserInfo {
+    user_id: i32,
+    friend: String,
+}
+
+// http://localhost:8080/api/users/read/1/daheige
+#[get("/users/read/{user_id}/{friend}")]
+async fn get_user2(info: web::Path<UserInfo>) -> Result<String> {
+    Ok(format!("welcome {},uid:{}", info.friend, info.user_id))
+}
+
+// http://localhost:8080/api/users/query?user_id=1&friend=daheige
+#[get("/users/query")]
+async fn query_user(info: web::Query<UserInfo>) -> Result<String> {
+    Ok(format!("welcome {},uid:{}", info.friend, info.user_id))
+}
+
+// 接收json内容，post方法
+/*
+% curl --location --request POST 'localhost:8080/api/users/post-json' \
+--header 'Content-Type: application/json' \
+--data-raw '{"user_id":1,"friend":"daheige"}'
+welcome daheige,uid:1
+*/
+#[post("/users/post-json")]
+async fn post_json(info: web::Json<UserInfo>) -> Result<String> {
+    Ok(format!("welcome {},uid:{}", info.friend, info.user_id))
+}
+
 // 以api作为前缀
 pub fn run_api() -> Scope {
     // 路由前缀设置
@@ -103,6 +142,10 @@ pub fn run_api() -> Scope {
     let v1 = web::scope("/api")
         .service(index)
         .service(either)
+        .service(get_user)
+        .service(get_user2)
+        .service(query_user)
+        .service(post_json)
         .route(
             "/info",
             web::get().to(|req: HttpRequest| {
