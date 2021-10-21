@@ -1,4 +1,4 @@
-use actix_web::{web, App, HttpRequest, HttpResponse, HttpServer, Responder};
+use actix_web::{web, App, HttpRequest, HttpResponse, HttpServer, Responder, Scope};
 use std::io::Result;
 
 // 定义router module
@@ -22,25 +22,7 @@ async fn main() -> Result<()> {
         App::new()
             .service(router::router::hello)
             .service(router::router::echo)
-            .service(
-                // 路由前缀设置
-                // http://localhost:8080/api/index
-                // 自定义闭包形式的handler
-                web::scope("/api")
-                    .service(router::router::index)
-                    .route(
-                        "/info",
-                        web::get().to(|req: HttpRequest| {
-                            println!("req:{:?}", req);
-                            println!("req method:{},uri:{}", req.method(), req.uri());
-                            let headers = req.headers();
-                            println!("req header:{:?}", headers);
-                            HttpResponse::Ok().body("api/info ok")
-                        }),
-                    )
-                    .route("/home", web::get().to(router::router::home))
-                    .route("/foo", web::get().to(router::router::foo)),
-            )
+            .service(router::router::run_api())
             .route("/hey", web::get().to(router::router::manual_hello))
     })
     .bind(address)?
