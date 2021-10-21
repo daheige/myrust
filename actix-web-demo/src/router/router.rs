@@ -1,5 +1,5 @@
 use actix_web::{
-    get, post, web, App, Error, HttpRequest, HttpResponse, HttpServer, Responder, Scope,
+    get, post, web, App, Either, Error, HttpRequest, HttpResponse, HttpServer, Responder, Scope,
 };
 use futures::future::{ready, Ready};
 use serde::Serialize;
@@ -35,6 +35,30 @@ pub async fn home(_req: HttpRequest) -> &'static str {
 // 返回String类型
 pub async fn foo() -> String {
     "foo,ok".to_string()
+}
+
+/*
+差异化返回类型（Either 枚举）
+
+有时，你需要返回不同类型的响应。比如，你可以检查错误和返回错误：
+返回错误的异步响应，或者返回依赖于两个不同类型的任意结果（result）
+ */
+type RegisterResult = Either<HttpResponse, Result<&'static str, Error>>;
+
+fn is_a_variant() -> bool {
+    let a = 1;
+    a > 0
+}
+
+#[get("/either")]
+async fn either() -> RegisterResult {
+    if is_a_variant() {
+        // <- choose variant A
+        Either::A(HttpResponse::BadRequest().body("Bad data"))
+    } else {
+        // <- variant B
+        Either::B(Ok("Hello!"))
+    }
 }
 
 // 自定义响应类型
@@ -78,6 +102,7 @@ pub fn run_api() -> Scope {
     // 自定义闭包形式的handler /api/info
     let v1 = web::scope("/api")
         .service(index)
+        .service(either)
         .route(
             "/info",
             web::get().to(|req: HttpRequest| {
