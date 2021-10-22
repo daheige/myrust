@@ -1,6 +1,6 @@
 use actix_web::{
-    get, post, web, App, Either, Error, HttpRequest, HttpResponse, HttpServer, Responder, Result,
-    Scope,
+    get, http, post, web, App, Either, Error, HttpRequest, HttpResponse, HttpServer, Responder,
+    Result, Scope,
 };
 use futures::future::{ready, Ready};
 use serde::{Deserialize, Serialize};
@@ -182,4 +182,23 @@ pub fn run_api() -> Scope {
         .route("/my-object3", web::get().to(index3));
 
     v1
+}
+
+// 单元测试
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn it_works() {
+        println!("test");
+    }
+
+    use actix_web::http;
+    use actix_web::test;
+    #[actix_rt::test]
+    async fn test_index() {
+        let req = test::TestRequest::with_header("content-type", "text/plain").to_http_request();
+        let resp = super::home(req).await;
+        println!("status:{:?}", resp);
+        assert_eq!(resp, "rust web");
+    }
 }
