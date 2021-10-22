@@ -147,6 +147,18 @@ pub fn run_api() -> Scope {
         .service(query_user)
         .service(post_json)
         .route(
+            "/user/{name}",
+            web::get().to(|| {
+                println!("11");
+                let body = serde_json::to_string(&MyObj { name: "abc" }).unwrap();
+                HttpResponse::Ok().body(body)
+            }),
+        )
+        .route(
+            "/abc",
+            web::post().to(|| HttpResponse::Ok().body("{\"code\":0}")),
+        )
+        .route(
             "/info",
             web::get().to(|req: HttpRequest| {
                 println!("req:{:?}", req);

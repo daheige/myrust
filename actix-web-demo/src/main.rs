@@ -1,4 +1,6 @@
-use actix_web::{web, App, HttpRequest, HttpResponse, HttpServer, Responder, Scope};
+use actix_web::{
+    http::StatusCode, web, App, HttpRequest, HttpResponse, HttpServer, Responder, Scope,
+};
 use std::io::Result;
 
 // 定义router module
@@ -24,6 +26,10 @@ async fn main() -> Result<()> {
             .service(router::router::echo)
             .service(router::router::run_api())
             .route("/hey", web::get().to(router::router::manual_hello))
+            .default_service(
+                // 默认路由找不到的时候
+                web::route().to(|| HttpResponse::NotFound().body("this page not found")),
+            )
     })
     .bind(address)?
     .run()
