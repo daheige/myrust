@@ -116,6 +116,13 @@ async fn get_user2(info: web::Path<UserInfo>) -> Result<String> {
     Ok(format!("welcome {},uid:{}", info.friend, info.user_id))
 }
 
+#[get("/user/info/{user_id}/{friend}")]
+async fn user_info(info: web::Path<UserInfo>) -> Result<HttpResponse> {
+    println!("welcome {},uid:{}", info.friend, info.user_id);
+    // 返回json格式
+    Ok(HttpResponse::Ok().json(MyObj { name: "abc" }))
+}
+
 // http://localhost:8080/api/users/query?user_id=1&friend=daheige
 #[get("/users/query")]
 async fn query_user(info: web::Query<UserInfo>) -> Result<String> {
@@ -146,6 +153,7 @@ pub fn run_api() -> Scope {
         .service(get_user2)
         .service(query_user)
         .service(post_json)
+        .service(user_info)
         .route(
             "/user/{name}",
             web::get().to(|| {
