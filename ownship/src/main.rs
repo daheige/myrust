@@ -59,6 +59,8 @@ fn main() {
     // println!("s = {},x = {}", s, x);
     // ^ value borrowed here after move
     println!("x = {}", x);
+
+    println!("abc length: {}", calculate_len(&String::from("abc")));
 }
 
 fn takes_ownership(str: String) {
@@ -67,4 +69,8 @@ fn takes_ownership(str: String) {
 
 fn makes_copy(i: i32) {
     println!("i = {}", i);
+}
+
+fn calculate_len(s: &String) -> usize {
+    s.len()
 }

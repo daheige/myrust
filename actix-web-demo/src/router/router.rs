@@ -192,6 +192,13 @@ mod tests {
         println!("test");
     }
 
+    #[test]
+    fn test_str() {
+        let s = String::from("abc");
+        println!("s = {}", s.as_str());
+        println!("s = {}", &s);
+    }
+
     use actix_web::http;
     use actix_web::test;
     #[actix_rt::test]
