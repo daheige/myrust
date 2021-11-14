@@ -67,6 +67,13 @@ fn main() {
     println!("y = {}", m1); // m1 = 2
 
     show([1, 2, 234]);
+    print_str(&"hello,world".to_string());
+}
+
+fn print_str(s: &str) {
+    for c in s.chars() {
+        println!("current char: {}", c);
+    }
 }
 
 // show 打印数组元素
