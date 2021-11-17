@@ -48,7 +48,7 @@ fn main() {
         }
     });
 
-    // 通过channel方式消息传递
+    // 通过channel方式消息传递,默认采用异步的方式send永远不阻塞
     handler.join().unwrap();
     let (tx, rx) = mpsc::channel();
     // 通过克隆的方式创建多个生产者
@@ -140,4 +140,16 @@ fn main() {
 
     let result = *counter.lock().unwrap();
     println!("result:{}", result);
+
+    let (tx, rx) = mpsc::sync_channel(1); // 同步通道大小为1
+    let tx_clone = tx.clone();
+    let _ = tx.send(1); // 第一次发送后，后面的任何操作都会被阻塞
+
+    thread::spawn(move || {
+        let _ = tx_clone.send(2);
+    });
+    println!("recv {}", rx.recv().unwrap());
+    println!("recv {}", rx.recv().unwrap());
+    println!("recv {}", rx.recv().unwrap());
+    println!("recv {:?}", rx.recv());
 }
