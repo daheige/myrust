@@ -147,7 +147,7 @@ pub async fn empty_array(_req: HttpRequest) -> Result<HttpResponse> {
     let result = Res {
         code: 0,
         message: "ok".to_string(),
-        data: empty_arr, // to json的时候这个就是一个{}
+        data: empty_arr, // to json的时候这个就是一个[]
     };
 
     Ok(HttpResponse::Ok().json(result))
