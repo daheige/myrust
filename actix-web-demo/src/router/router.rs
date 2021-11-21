@@ -1,3 +1,5 @@
+use std::{collections::HashMap, result, string, vec};
+
 use actix_web::{
     get, http, post, web, App, Either, Error, HttpRequest, HttpResponse, HttpServer, Responder,
     Result, Scope,
@@ -87,6 +89,68 @@ pub async fn index2(_req: HttpRequest) -> impl Responder {
     MyObj {
         name: "rust develop",
     }
+}
+
+pub async fn say(req: HttpRequest) -> Result<String> {
+    println!("req.method: {}", req.method());
+    Ok("abc".to_string())
+}
+
+#[derive(Serialize, Deserialize)]
+struct Res<T> {
+    code: i64,
+    message: String,
+    data: T,
+}
+
+#[derive(Serialize, Deserialize)]
+struct EmptyObject {} // 空对象{}定义
+
+// 采用空对象的模式，构建空数组，主要是兼容其他语言的[]
+type EmptyArray<EmptyObject> = Vec<EmptyObject>;
+
+pub async fn say2(req: HttpRequest) -> Result<HttpResponse> {
+    println!("req.method: {}", req.method());
+    let mut v: Vec<i32> = Vec::new();
+    v.push(123);
+
+    // let result = Res {
+    //     code: 0,
+    //     message: "ok".to_string(),
+    //     data: v,
+    // };
+    let result = Res {
+        code: 0,
+        message: "ok".to_string(),
+        data: v,
+    };
+
+    // let mut map = HashMap::new();
+    // map.insert("list", v);
+    // Ok(HttpResponse::Ok().json(map))
+    Ok(HttpResponse::Ok().json(result))
+}
+
+pub async fn empty_obj(_req: HttpRequest) -> Result<HttpResponse> {
+    let empty_obj = EmptyObject {};
+    let result = Res {
+        code: 0,
+        message: "ok".to_string(),
+        data: empty_obj, // to json的时候这个就是一个{}
+    };
+
+    Ok(HttpResponse::Ok().json(result))
+}
+
+pub async fn empty_array(_req: HttpRequest) -> Result<HttpResponse> {
+    let empty_arr: EmptyArray<EmptyObject> = vec![];
+    let result = Res {
+        code: 0,
+        message: "ok".to_string(),
+        data: empty_arr, // to json的时候这个就是一个{}
+    };
+
+    Ok(HttpResponse::Ok().json(result))
 }
 
 pub async fn index3(_req: HttpRequest) -> impl Responder {
@@ -179,8 +243,11 @@ pub fn run_api() -> Scope {
         .route("/home", web::get().to(home))
         .route("/foo", web::get().to(foo))
         .route("/my-object", web::get().to(index2))
-        .route("/my-object3", web::get().to(index3));
-
+        .route("/my-object3", web::get().to(index3))
+        .route("/say", web::get().to(say))
+        .route("/say2", web::get().to(say2))
+        .route("/empty-obj", web::get().to(empty_obj))
+        .route("/empty-arr", web::get().to(empty_array));
     v1
 }
 
