@@ -21,4 +21,10 @@ fn main() {
     let p1 = Point { x: 1, y: 123 };
     let p2 = Point { x: 1, y: 123 };
     println!("p1+p2:{:?}", p1 + p2); // p1+p2:Point { x: 2, y: 246 }
+
+    let p1 = Point { x: 1, y: 123 };
+    let p2 = Point { x: 1, y: 123 };
+    println!("p2 = {:?}", p2);
+    println!("p1+p2 = {:?}", p1 + p2);
+    // println!("p1.x = {}", p1.x); // 这里p1所有权已经被p1+p2加操作移动了所有权，这里就不能继续使用了
 }
