@@ -1,6 +1,8 @@
 use log::{debug, error, info};
 
 // 日志级别从高到低 error > warn > info > debug > trace
+
+// 其他强大的日志包 log4rs
 fn main() {
     env_logger::init(); // 日志初始化
     println!("Hello, world!");
