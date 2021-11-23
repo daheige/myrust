@@ -1,9 +1,12 @@
 use log::{debug, error, info};
+use std::env;
 
 // 日志级别从高到低 error > warn > info > debug > trace
 
 // 其他强大的日志包 log4rs
 fn main() {
+    // env::set_var("RUST_LOG", "log_demo=debug"); // 通过调用函数设置环境变量
+
     env_logger::init(); // 日志初始化
     println!("Hello, world!");
     info!("abc");
