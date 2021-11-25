@@ -31,6 +31,19 @@ fn iter_sum() {
     println!("total is {}", total);
 }
 
+#[test]
+fn iter_enumerate() {
+    use std::iter::Iterator;
+    let v = &[1, 2, 3, 4, 5];
+    for (key, value) in v.iter().enumerate() {
+        println!("key:{} value:{}", key, value);
+    }
+
+    // 采用filter方法快速过滤
+    let item = v.iter().filter(|&x| *x % 2 == 0).nth(2); // nth(x)表示第几个索引位置上的元素
+    println!("{:?}", item);
+}
+
 #[derive(PartialEq, Debug)]
 struct Shoe {
     size: u32,

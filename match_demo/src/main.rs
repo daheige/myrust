@@ -178,3 +178,69 @@ enum Message2 {
 let 语句和函数参数的模式使得这些结构更强大，可以在将值解构为更小部分的同时为变量赋值。
 可以创建简单或复杂的模式来满足我们的要求
  */
+
+fn category(x: i32) {
+    match x {
+        -1 => println!("{}", 123),
+        0 => println!("zero"),
+        1 => println!("positive"),
+        _ => println!("other value error"), // 表示都没有匹配的时候
+    }
+}
+
+fn mul_category(x: i32) {
+    match x {
+        // 多个值匹配
+        -1 | 1 => println!("true"),
+        0 => println!("false"),
+        _ => println!("error"),
+    }
+}
+
+#[test]
+fn test_category() {
+    let x = 1;
+
+    // positive
+    // other value error
+    category(x);
+    category(-2);
+
+    mul_category(1); // true
+
+    let x = 1;
+    match x {
+        // e @之前是进行变量什么，@后面是一个需要匹配的模式
+        e @ 1...5 => println!("got a range elem:{}", e),
+        _ => println!("nothing"),
+    }
+
+    #[derive(Debug)]
+    enum E2 {
+        A,
+        B,
+        C,
+        D,
+        E,
+        F,
+    }
+
+    // option match模式匹配
+    let y: Option<E2> = Some(E2::C);
+    match &y {
+        // 这里是借用
+        Some(m) => println!("m:{:?}", m),
+        None => println!("none"),
+    }
+
+    if let Some(m1) = y {
+        // 将y移动到了Some(m1)
+        println!("if let some m1:{:?}", m1); // if let some m1:C
+    }
+
+    // 通过if let简化
+    let y = E2::B;
+    let r = if let E2::A | E2::B = y { 1 } else { 2 };
+
+    println!("r = {}", r);
+}
