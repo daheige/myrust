@@ -16,4 +16,5 @@ fn main() {
 
     // 你可以在数字左边补 0。下面语句输出 "000001"，填充
     println!("{number:>0width$}", number = 1, width = 6);
+    println!("{}", 111) // 占位符的模式打印
 }
