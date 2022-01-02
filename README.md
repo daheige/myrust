@@ -97,13 +97,10 @@ https://github.com/diesel-rs/diesel
 # rust redis操作
 https://github.com/mitsuhiko/redis-rs
 
-# rust web框架
+# actix-web框架
 https://github.com/actix/actix-web
 
 web框架入门
-https://actix-web.budshome.com/_index.html
-
-# actix-web
 https://actix-web.budshome.com/intro.html
 
 https://actix.rs/docs/getting-started/
