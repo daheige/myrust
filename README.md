@@ -86,6 +86,11 @@ https://doc.rust-lang.org/book/ch03-02-data-types.html
 rust程序设计第二版
 https://kaisery.github.io/trpl-zh-cn/
 
+# rust语言圣经
+https://course.rs/
+
+https://github.com/sunface/rust-codes
+
 # rust资料汇总
 https://github.com/shirdonliao/awesome-rust
 
