@@ -22,7 +22,7 @@ fn area(w: u32, h: u32) -> u32 {
     w * h
 }
 
-fn dicz_area(d: (u32, u32)) -> u32 {
+fn get_area(d: (u32, u32)) -> u32 {
     d.0 * d.1
 }
 
@@ -73,7 +73,7 @@ fn main() {
 
     println!("c.0 = {}", c.0);
     println!("{}", area(12, 10)); // 120
-    println!("res = {}", dicz_area((12, 10))); // 120
+    println!("res = {}", get_area((12, 10))); // 120
 
     let r = Rectangle {
         width: 12,
