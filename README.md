@@ -89,6 +89,11 @@ https://kaisery.github.io/trpl-zh-cn/
 # rust语言圣经
 https://course.rs/
 
+https://github.com/sunface/rust-course
+
+# Rust代码鉴赏
+https://codes.rs/
+
 https://github.com/sunface/rust-codes
 
 # rust资料汇总
