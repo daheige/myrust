@@ -5,11 +5,13 @@
     精通rust第二版 邓世超翻译的，京东/当当都可以买到
 
 # rust安装
+
 https://www.rust-lang.org/zh-CN/tools/install
 
 https://kaisery.github.io/trpl-zh-cn/ch01-01-installation.html
 
-	shell安装
+	建议安装到rust v1.58.0+版本
+    shell安装
 	curl https://sh.rustup.rs -sSf | sh
     对于centos7安装请看 rust-centos7-install.md
     
@@ -17,9 +19,9 @@ https://kaisery.github.io/trpl-zh-cn/ch01-01-installation.html
     rustup update
     
     rust版本查看
-    rustc --version
-    rustc 1.55.0 (c8dfcfe04 2021-09-06)
-    升级到指定版本 rust update "1.55.0"
+    cargo --version
+    cargo 1.58.0 (7f08ace4f 2021-11-24)
+    升级到指定版本 rust update "1.58.0"
     
 # 设置rust国内镜像
 
@@ -74,6 +76,15 @@ https://kaisery.github.io/trpl-zh-cn/ch01-01-installation.html
     }
 }
 ```
+
+# vscode rust-analyer 插件
+    选择rust-analyer作为Rust语言的插件，具体的安装很简单
+    点击插件，选择安装即可，根据提示可能需要重新加载IDE
+    在此，再推荐大家几个好用的插件：
+        Better TOML，用于更好的展示.toml文件
+        Error Lens, 更好的获得错误展示
+        One Dark Pro, 非常好看的Vscode主题
+        CodeLLDB, debugger程序
 
 # rust社区
 Rust语言中文社区 https://rustcc.cn/

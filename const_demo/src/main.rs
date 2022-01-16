@@ -12,4 +12,6 @@ fn main() {
     let n = 12;
     println!("this threshold is {}", is_big(n));
     println!("lang is {}", LANG);
+    let name = "daheige";
+    println!("{name}");
 }

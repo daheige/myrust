@@ -2,7 +2,7 @@
 name = "adder_part"
 version = "0.1.0"
 authors = ["daheige <zhuwei313@hotmail.com>"]
-edition = "2018"
+edition = "2021"
 license = "MIT"
 description="large plus"
 
