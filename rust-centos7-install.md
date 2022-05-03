@@ -4,7 +4,8 @@
 
 	1. 设置好清华镜像
 		vim ~/.bashrc
-		export RUSTUP_DIST_SERVER=https://mirrors.tuna.tsinghua.edu.cn/rustup
+		export RUSTUP_UPDATE_ROOT=https://mirrors.tuna.tsinghua.edu.cn/rustup/rustup
+	    export RUSTUP_DIST_SERVER=https://mirrors.tuna.tsinghua.edu.cn/rustup
 
 		:wq
 		source ~/.bashrc
@@ -15,7 +16,8 @@
 		./rustup-init -v -y --no-modify-path
 	3.修改~/.bashrc的配置文件
 		# rust
-		export RUSTUP_DIST_SERVER="https://mirrors.tuna.tsinghua.edu.cn/rustup"
+		export RUSTUP_UPDATE_ROOT=https://mirrors.tuna.tsinghua.edu.cn/rustup/rustup
+	    export RUSTUP_DIST_SERVER=https://mirrors.tuna.tsinghua.edu.cn/rustup
 		export PATH="$HOME/.cargo/bin:$PATH"
 
 		:wq

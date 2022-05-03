@@ -25,9 +25,13 @@ https://kaisery.github.io/trpl-zh-cn/ch01-01-installation.html
     
 # 设置rust国内镜像
 
-	国内提高访问速度，建议设置环境变量 
-	export RUSTUP_DIST_SERVER=https://mirrors.ustc.edu.cn/rust-static
-	export RUSTUP_UPDATE_ROOT=https://mirrors.ustc.edu.cn/rust-static/rustup
+	国内提高访问速度，建议设置环境变量 vim ~/.bashrc
+	export RUSTUP_UPDATE_ROOT=https://mirrors.tuna.tsinghua.edu.cn/rustup/rustup
+	export RUSTUP_DIST_SERVER=https://mirrors.tuna.tsinghua.edu.cn/rustup
+    export PATH="$HOME/.cargo/bin:$PATH"
+    
+    :wq
+    source ~/.bashrc
 
 	在用户目录.cargo文件夹或在与Cargo.toml同级目录.cargo文件夹下创建config文件
 	$cd ~/.cargo/
@@ -53,6 +57,9 @@ https://kaisery.github.io/trpl-zh-cn/ch01-01-installation.html
 	# rustcc社区
 	[source.rustcc]
 	registry = "https://code.aliyun.com/rustcc/crates.io-index.git"
+
+# 镜像设置参考
+    https://mirrors.tuna.tsinghua.edu.cn/help/rustup/
 
 # rust编辑器
 
