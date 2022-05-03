@@ -117,6 +117,9 @@ https://github.com/sunface/rust-codes
 # rust资料汇总
 https://github.com/shirdonliao/awesome-rust
 
+# rust 标注库设计分析
+https://github.com/daheige/inside-rust-std-library
+
 # rust mysql操作
 https://github.com/launchbadge/sqlx
 
